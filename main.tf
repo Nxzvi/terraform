@@ -9,4 +9,11 @@ resource "aws_s3_bucket" "example" {
     Name        = "My bucket"
     Environment = "Dev"
   }
+}
 
+module "vpc" {
+  source="./module/vpc"
+  for_each=var.vpcs
+  vpc_cidr=each.value.cidr
+  vpc_name=each.value.name
+}
